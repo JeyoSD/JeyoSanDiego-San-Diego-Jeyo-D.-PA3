@@ -4,6 +4,10 @@
 # In[ ]:
 
 
+#Using knowledge obtained from the experiment and demonstrations:
+#a. Load the corresponding .csv file into a data frame named cars using pandas
+#b. Display the first five and last five rows of the resulting cars.
+
 import numpy as np
 import pandas as pd
 def main():
@@ -13,4 +17,3 @@ def main():
     display(cars_5rows)
     
 main()
-
