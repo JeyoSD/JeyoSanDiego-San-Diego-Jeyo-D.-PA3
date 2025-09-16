@@ -106,4 +106,4 @@ Model	cyl	gear
 
 **2.** Open Jupyter Notebook and upload the file (.ipynb) using the notebook.
 
-**3.** Run the cells in order and input the desired user inputs in the blank boxes.
+**3.** Run the cells.
