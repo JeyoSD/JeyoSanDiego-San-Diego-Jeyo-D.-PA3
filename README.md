@@ -1,23 +1,32 @@
-# Experiment 3: Python Data Analysis
+# Experiment 3: Python Data Analysis v.1.1
 
-This is a repository that contains Jupyter Notebook code using the Python programming language. It is a set of two exercises that make use of Python Data Analysis concepts.
+This repository contains Jupyter Notebook code written in the Python programming language. It is a set of two exercises that utilize Python Data Analysis concepts.
 
 ## 1. First and Last Row Problem
-This code loads a given dataframe called "cars.csv" using ```cars = pd.read_csv('cars.csv')``` and displays the first and last five rows of the dataframe by using a numpy code alongside the ```.iloc[]``` code to concatenate the sliced data from the first 0th to 5th rows and 27th to 32nd using ```cars_5rows = cars.iloc[np.r_[0:5, 27:32]]```.
+The first part of the code imports the Pandas and NumPy Libraries using `import pandas as pd` and `import numpy as np` respectively, and reads the `cars.csv` file in the user's local files using `pd.read_csv()` to store the attached dataframe in `cars`.
+```
+import pandas as pd #Imports the Pandas Library
+import numpy as np #Imports the Numpy Library
+def main():
+    cars = pd.read_csv('cars.csv') #Reads the cars.csv file in the user's files and stores the contained dataframe in cars
+```
+The next part of the code locates the first and last five rows of the `cars` dataframe using `.iloc[]`. The indexer has two main parts, consisting of `np.r_`,  which concatenates the two slices from the first (1st to 5th) and last (28th to 32nd) five rows of the dataframe using `[[0:5], [27:32]]`. It stores the dataframe in `cars_5rows` and outputs the dataframe using `display()` before calling the main function to run the code.
+```
+    cars_5rows = cars.iloc[np.r_[0:5, 27:32]] #Locates the first and last five slices of the dataframe and concatenates them into one dataframe stored in cars_5rows
+    display(cars_5rows) #Outputs the cars_5rows dataframe
+    
+main()
+```
 
 ### First and Last Row Code:
 ```
-#Using knowledge obtained from the experiment and demonstrations:
-#a. Load the corresponding .csv file into a data frame named cars using pandas
-#b. Display the first five and last five rows of the resulting cars.
-
-import numpy as np
-import pandas as pd
+import pandas as pd #Imports the Pandas Library
+import numpy as np #Imports the Numpy Library
 def main():
-    cars = pd.read_csv('cars.csv')
+    cars = pd.read_csv('cars.csv') #Reads the cars.csv file in the user's files and stores the contained dataframe in cars
     
-    cars_5rows = cars.iloc[np.r_[0:5, 27:32]]
-    display(cars_5rows)
+    cars_5rows = cars.iloc[np.r_[0:5, 27:32]] #Locates the first and last five slices of the dataframe and concatenates them into one dataframe stored in cars_5rows
+    display(cars_5rows) #Outputs the cars_5rows dataframe
     
 main()
 ```
@@ -38,31 +47,54 @@ main()
 ```
 
 ## 2. Subsetting, Slicing, and Indexing Problem:
-This code locates specific data from the cars.csv dataframe by first loading the given .csv file using ```cars2 = pd.read_csv('cars.csv')```, then first utilizing slicing to find the first five rows of odd-index columns using ```cars2.loc[0:4, ['Model', 'mpg', 'disp', 'drat', 'qsec', 'am', 'carb']]```. Second, the code utilized indexing to find the information of specific models of cars and specific information about certain models using ```cars2.loc[cars2['Model'] == 'Mazda RX4']``` and ```cars2.loc[cars2['Model'] == 'Camaro Z28', ['Model', 'cyl']]``` respectively. Lastly, it uses subsetting to find the cylinder and gear type from three particular car models from the dataframe using ```info = cars2.loc[[1, 28, 18], ['Model', 'cyl', 'gear']]```.
+The first part of the code imports the Pandas Library using `import pandas as pd` and reads the `cars.csv` file from the user's local files using `pd.read_csv()`, storing the resulting dataframe in `cars2`.
+```
+import pandas as pd #Imports the Pandas Library
+def main():
+    cars2 = pd.read_csv('cars.csv') #Reads the cars.csv file in the user's files and stores the contained dataframe in cars
+```
+This part of the code locates the first five rows of the dataframe and every other column, specifically the odd columns, that correspond with each row. The code achieves this by using the `.loc[]` indexer and slicing the first five rows with `[0:4]`. It then instructs pandas to include only the odd columns, which turn out to be the model, mpg, disp, drat, qsec, am, and carb, using a column selection list before storing all values located under `cars_5odd` and outputting the dataframe with `display()`.
+```
+    cars_5odd = cars2.loc[0:4, ['Model', 'mpg', 'disp', 'drat', 'qsec', 'am', 'carb']] #Locates the first to fifth rows with the specified columns
+    display(cars_5odd) #Displays the cars_5odd dataframe
+```
+The second part of the code utilizes indexing alongside the `.loc` indexer to find specifically the row containing the Mazda RX4 model in the cars2 dataframe using `cars2['Model'] == 'Mazda RX4'`. It stores the dataframe into `model` and outputs the result with `display()`.
+```
+    model = cars2.loc[cars2['Model'] == 'Mazda RX4'] #Locates the row with Mazda RX4 under the model category
+    display(model) #Displays the model dataframe
+```
+The code uses a similar method to find the row with the model of Camaro Z28 using `cars2['Model'] == 'Camaro Z28'` and specifies to output only the columns consisting of the model information and cyl information by specifying the column selection list of `['Model', 'cyl']` and storing the output in `cyl`. It then displays the resulting dataframe using `display()`.
+```
+    cyl = cars2.loc[cars2['Model'] == 'Camaro Z28', ['Model', 'cyl']] #Locates the row with Camaro Z28 under the model category and selects only the model and cyl values 
+    display(cyl) #Displays the cyl dataframe
+```
+The code locates using `.loc[]` the rows with the model Mazda RX4 Wag, Ford Pantera L, and Honda Civic, utilizing the bitwise or operator `|` to combine the conditions and specifying the column selection list of `['Model', 'cyl', 'gear]`, storing the resulting dataframe in `info` and displaying it with `display()`. Finally, the main function is called to execute the code.  
+```
+    #Locates the rows with Mazda RX4 Wag, Ford Pantera L, and Honda Civic under the model category and selects only the model, cyl, and gear values 
+    info = cars2.loc[(cars2['Model'] == 'Mazda RX4 Wag') | (cars2['Model'] == 'Ford Pantera L') | (cars2['Model'] == 'Honda Civic'), ['Model', 'cyl', 'gear']]
+    display(info) #Displays the info dataframe
+
+main()
+```
 
 ### Divisible by 3 Code:
 ```
-#Using the dataframe cars in problem 1, extract the following information using subsetting, slicing, and indexing operations.
-#a. Display the first five rows with odd-numbered columns (columns 1, 3, 5, 7...) of cars.
-#b. Display the row that contains the ‘Model’ of ‘Mazda RX4’.
-#c. How many cylinders (‘cyl’) does the car model ‘Camaro Z28’ have?
-#d. Determine how many cylinders (‘cyl’) and what gear type (‘gear’) the car models ‘Mazda RX4Wag’, ‘Ford Pantera L’, and ‘Honda Civic’ have.
-
-import pandas as pd
+import pandas as pd #Imports the Pandas Library
 def main():
-    cars2 = pd.read_csv('cars.csv')
+    cars2 = pd.read_csv('cars.csv') #Reads the cars.csv file in the user's files and stores the contained dataframe in cars
     
-    cars_5odd = cars2.loc[0:4, ['Model', 'mpg', 'disp', 'drat', 'qsec', 'am', 'carb']] 
-    display(cars_5odd)
+    cars_5odd = cars2.loc[0:4, ['Model', 'mpg', 'disp', 'drat', 'qsec', 'am', 'carb']] #Locates the first to fifth rows with the specified columns
+    display(cars_5odd) #Displays the cars_5odd dataframe
     
-    model = cars2.loc[cars2['Model'] == 'Mazda RX4']
-    display(model)
+    model = cars2.loc[cars2['Model'] == 'Mazda RX4'] #Locates the row with Mazda RX4 under the model category
+    display(model) #Displays the model dataframe
     
-    cyl = cars2.loc[cars2['Model'] == 'Camaro Z28', ['Model', 'cyl']]
-    display(cyl)
+    cyl = cars2.loc[cars2['Model'] == 'Camaro Z28', ['Model', 'cyl']] #Locates the row with Camaro Z28 under the model category and selects only the model and cyl values 
+    display(cyl) #Displays the cyl dataframe
     
-    info = cars2.loc[[1, 28, 18], ['Model', 'cyl', 'gear']]
-    display(info)
+    #Locates the rows with Mazda RX4 Wag, Ford Pantera L, and Honda Civic under the model category and selects only the model, cyl, and gear values 
+    info = cars2.loc[(cars2['Model'] == 'Mazda RX4 Wag') | (cars2['Model'] == 'Ford Pantera L') | (cars2['Model'] == 'Honda Civic'), ['Model', 'cyl', 'gear']]
+    display(info) #Displays the info dataframe
 
 main()
 ```
